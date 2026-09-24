@@ -42,27 +42,41 @@ Switch wallpapers from the Omarchy menu (**Style → Background**) or with
 
 ## What's in this folder
 
-| Folder     | What it is                                                   |
-|------------|--------------------------------------------------------------|
-| `theme/`   | The Omarchy theme: colors, Hyprland, shell, GTK, wallpapers  |
-| `dock/`    | The Monogray Dock bar widget (`monogray.dock`)               |
-| `cursor/`  | The Monogray Cursor plugin (`monogray.cursor`) and cursor set |
-| `hooks/`   | Theme-switch hook for GTK apps and Code - OSS                |
-| `tools/`   | Scripts that generate the wallpapers and cursors             |
+The top level is the Omarchy theme itself (`colors.toml`, `hyprland.lua`,
+`shell.toml`, `gtk.css`, `backgrounds/` and so on), so Omarchy can install it
+straight from GitHub. The extras live in subfolders:
 
-`install.sh` puts each piece where Omarchy expects it.
+| Folder     | What it is                                                    |
+|------------|---------------------------------------------------------------|
+| `dock/`    | The Monogray Dock bar widget (`monogray.dock`)                |
+| `cursor/`  | The Monogray Cursor plugin (`monogray.cursor`) and cursor set |
+| `hooks/`   | Theme-switch hook for GTK apps and Code - OSS                 |
+| `tools/`   | Scripts that generate the wallpapers and cursors              |
 
 ## Install
 
+**1. Install the theme:**
+
 ```bash
-git clone https://github.com/Halftec/Monogray-theme.git
-cd Monogray-theme
-./install.sh
+omarchy theme install https://github.com/Halftec/Monogray-theme
 ```
 
-The installer:
+This gives you the colors, the wallpapers, the clear bar and the glass menus.
 
-1. Copies the theme to `~/.config/omarchy/themes/monogray`.
+**2. Add everything else (recommended):**
+
+```bash
+~/.config/omarchy/themes/monogray/install.sh
+```
+
+Omarchy doesn't let a theme installed from GitHub run code, so step 1 leaves
+out the glass windows and blur (they live in `hyprland.lua`), the dock, the
+cursor, the icon set and the Files/VS Code styling. The installer adds them.
+It's short, so read it first if you like. It:
+
+1. Moves the downloaded theme to `~/.local/share/monogray-theme`, where it's
+   still a git clone you can update, and installs the theme files as a regular
+   user theme so Omarchy keeps `hyprland.lua`.
 2. Downloads the icon set to `~/.local/share/icons` (no sudo needed).
 3. Adds a theme-set hook that styles GTK apps and Code - OSS.
 4. Adds the dock to the center of the bar and moves the clock to the far right.
@@ -73,13 +87,14 @@ The installer:
 6. Switches to the theme.
 
 Options: `--no-dock`, `--no-layout` (add the dock but leave the bar layout
-alone), `--no-icons`, `--no-cursor`, and `--link` (symlink instead of copy, for working on the
-theme).
+alone), `--no-icons`, `--no-cursor`, and `--link` (symlink instead of copy, for
+working on the theme).
 
-> **Why not `omarchy theme install <url>`?** For a theme installed from git,
-> Omarchy removes every `.lua` file for safety. The theme's `hyprland.lua` holds
-> the blur, opacity, rounding and glow, so this repo installs as a regular user
-> theme instead. Read `install.sh` before running it; it's short.
+You can also skip step 1: `git clone` the repo anywhere and run `./install.sh`
+from it.
+
+To update later, run `git -C ~/.local/share/monogray-theme pull`, then run
+`install.sh` from that folder again.
 
 ## Pinning apps in the dock
 
@@ -108,11 +123,11 @@ Pins are `.desktop` file names without the extension (see
 
 | What                         | Where                                                       |
 |------------------------------|-------------------------------------------------------------|
-| Window opacity               | `theme/hyprland.lua`, `opacity = "0.85 0.75"`       |
-| Borders, glow, blur          | `theme/hyprland.lua`                                |
-| Bar, menu, popup transparency| `theme/shell.toml`                                  |
-| Palette                      | `theme/colors.toml`                                 |
-| Files / GTK look             | `theme/gtk.css` (GTK4), `theme/gtk3.css`    |
+| Window opacity               | `hyprland.lua`, `opacity = "0.85 0.75"`       |
+| Borders, glow, blur          | `hyprland.lua`                                |
+| Bar, menu, popup transparency| `shell.toml`                                  |
+| Palette                      | `colors.toml`                                 |
+| Files / GTK look             | `gtk.css` (GTK4), `gtk3.css`    |
 
 Edit the copy in `~/.config/omarchy/themes/monogray/`, then run
 `omarchy theme set monogray`.
@@ -157,7 +172,11 @@ tools/build-wallpapers.sh .venv/bin/python
 
 ## Uninstall
 
+Run `uninstall.sh` from the repo folder. That's `~/.local/share/monogray-theme`
+if you installed with `omarchy theme install`.
+
 ```bash
+cd ~/.local/share/monogray-theme
 ./uninstall.sh                # switches to tokyo-night, then removes everything
 ./uninstall.sh gruvbox        # pick the theme to switch to
 ./uninstall.sh --remove-icons # also delete the icon set

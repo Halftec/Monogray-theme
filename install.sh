@@ -8,13 +8,18 @@
 #   ./install.sh --no-cursor  skip the Monogray cursor set
 #   ./install.sh --link       symlink instead of copy (for working on the theme)
 #
-# Why not `omarchy theme install <url>`: for a theme cloned from git, Omarchy
-# drops every .lua file, and hyprland.lua is where the blur, window opacity,
-# rounding and glow live. Copying the theme in as a regular user theme keeps it.
+# Works from any clone, including the one `omarchy theme install` makes. For a
+# theme folder that is a git clone, Omarchy drops every .lua file, and
+# hyprland.lua is where the blur, window opacity, rounding and glow live. So
+# this installs the theme as a plain user theme instead, and moves a clone
+# made by `omarchy theme install` to ~/.local/share/monogray-theme first.
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 THEME_ID="monogray"
+# The files that make up the theme itself (the rest of the repo is extras).
+THEME_FILES=(colors.toml hyprland.lua shell.toml gtk.css gtk3.css icons.theme preview.png backgrounds)
+SHARE_DIR="$HOME/.local/share/monogray-theme"
 PLUGIN_ID="monogray.dock"
 CURSOR_ID="monogray.cursor"
 HOOK_NAME="monogray-extras.sh"
@@ -62,8 +67,30 @@ place() {
 }
 
 # ------------------------------------------------------------------ theme
+# Running from the clone `omarchy theme install` made: move it out of the
+# themes folder (keeping it as a git clone, so it can still be updated) and
+# install from the new location.
+if [[ $REPO == "$(readlink -f "$THEMES_DIR/$THEME_ID" 2>/dev/null)" && ! -L $THEMES_DIR/$THEME_ID && -d $REPO/.git ]]; then
+  step "Moving the downloaded theme to $SHARE_DIR"
+  rm -rf "$SHARE_DIR"
+  mkdir -p "$(dirname "$SHARE_DIR")"
+  mv "$REPO" "$SHARE_DIR"
+  REPO="$SHARE_DIR"
+  cd "$REPO"
+fi
+
 step "Installing theme to $THEMES_DIR/$THEME_ID"
-place "$REPO/theme" "$THEMES_DIR/$THEME_ID"
+dest="$THEMES_DIR/$THEME_ID"
+if (( link )); then
+  # A symlinked theme counts as the user's own, so its hyprland.lua is kept.
+  place "$REPO" "$dest"
+else
+  rm -rf "$dest"
+  mkdir -p "$dest"
+  for f in "${THEME_FILES[@]}"; do
+    cp -r "$REPO/$f" "$dest/"
+  done
+fi
 
 # ------------------------------------------------------------------ icons
 if (( with_icons )); then

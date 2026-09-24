@@ -1,5 +1,5 @@
 #!/bin/bash
-# Rebuild every wallpaper in theme/backgrounds/ from the generators.
+# Rebuild every wallpaper in backgrounds/ from the generators.
 # All of them are original, procedurally generated art (no third-party images).
 #
 #   tools/build-wallpapers.sh [python]    python needs numpy + pillow
@@ -7,7 +7,7 @@ set -euo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 PY=${1:-python3}
-OUT=theme/backgrounds
+OUT=backgrounds
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 

@@ -61,6 +61,12 @@ done
 step "Removing the theme"
 rm -rf "$HOME/.config/omarchy/themes/$THEME_ID"
 
+# The clone install.sh moved here after `omarchy theme install` (if any).
+if [[ -d $HOME/.local/share/monogray-theme ]]; then
+  step "Removing the downloaded copy in ~/.local/share/monogray-theme"
+  rm -rf "$HOME/.local/share/monogray-theme"
+fi
+
 if (( remove_icons )); then
   step "Removing the icon set"
   rm -rf "$HOME/.local/share/icons/yet-another-monochrome-icon-set"
