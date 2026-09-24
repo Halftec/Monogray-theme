@@ -1,0 +1,43 @@
+/* Monogray — GTK3 apps (Adwaita-dark base). Solid colors: most GTK3
+ * apps don't request an alpha visual, so translucency is left to GTK4.
+ * Installed to ~/.config/gtk-3.0/gtk.css by hooks/theme-extras.sh. */
+
+@define-color theme_bg_color            #25272f;
+@define-color theme_fg_color            #e3e3e3;
+@define-color theme_base_color          #1c1c23;
+@define-color theme_text_color          #e3e3e3;
+@define-color theme_selected_bg_color   #474f71;
+@define-color theme_selected_fg_color   #ffffff;
+@define-color insensitive_bg_color      #25272f;
+@define-color insensitive_fg_color      #888a9a;
+@define-color insensitive_base_color    #1c1c23;
+@define-color theme_unfocused_bg_color  #25272f;
+@define-color theme_unfocused_fg_color  #e3e3e3;
+@define-color theme_unfocused_base_color #1c1c23;
+@define-color theme_unfocused_selected_bg_color #474f71;
+@define-color borders                   #2a2c31;
+@define-color unfocused_borders         #2a2c31;
+@define-color accent_color              #6a97ff;
+@define-color accent_bg_color           #3e6fd9;
+@define-color success_color             #27ae60;
+@define-color warning_color             #fdbc4b;
+@define-color error_color               #da4453;
+
+window, .background {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+}
+
+headerbar, .titlebar {
+  background: #25272f;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+
+*:selected, .view:selected, row:selected {
+  background-color: #474f71;
+  color: #ffffff;
+}
+
+scrollbar slider {
+  background-color: #3a3f4a;
+}

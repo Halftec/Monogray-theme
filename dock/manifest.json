@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "monogray.dock",
+  "name": "Monogray Dock",
+  "version": "1.0.0",
+  "author": "Monogray for Omarchy",
+  "license": "MIT",
+  "description": "Icon-only app dock that lives in the top bar, after the KDE panel task manager in juxtopposed/Mystical-Blue-Theme: monochrome icons, no background, and a thin line above running and focused apps.",
+  "kinds": ["bar-widget"],
+  "entryPoints": { "barWidget": "Dock.qml" },
+  "barWidget": {
+    "displayName": "Monogray Dock",
+    "description": "Pinned and running apps as monochrome icons in the bar.",
+    "category": "Compositor",
+    "allowMultiple": false,
+    "defaultSection": "center",
+    "defaults": {
+      "pinned": ["org.gnome.Nautilus", "chromium", "foot", "obsidian", "libreoffice-startcenter"],
+      "monochrome": true,
+      "iconSize": 18
+    },
+    "schema": [
+      { "key": "monochrome", "type": "boolean", "label": "Monochrome icons", "defaultValue": true },
+      { "key": "iconSize", "type": "integer", "label": "Icon size", "min": 12, "max": 24, "step": 1, "defaultValue": 18 }
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+/* Monogray — GTK4 / libadwaita (Nautilus and other GNOME apps).
+ * Modelled on the Dolphin + Kvantum look in juxtopposed/Mystical-Blue-Theme:
+ * translucent slate glass (Hyprland blurs behind it), JetBrains Mono,
+ * a soft gradient on the selected sidebar row with an accent edge.
+ * Installed to ~/.config/gtk-4.0/gtk.css by hooks/theme-extras.sh. */
+
+@define-color mb_window   rgba(37, 39, 47, 0.86);
+@define-color mb_view     rgba(28, 28, 35, 0.72);
+@define-color mb_sidebar  rgba(28, 28, 35, 0.55);
+@define-color mb_popover  rgba(38, 43, 52, 0.94);
+@define-color mb_card     rgba(255, 255, 255, 0.04);
+@define-color mb_fg       #e3e3e3;
+@define-color mb_dim      #888a9a;
+@define-color mb_select   #474f71;
+@define-color mb_accent   #6a97ff;
+@define-color mb_accentbg #3e6fd9;
+
+/* libadwaita named colors (both the classic and the 1.6+ variable forms) */
+@define-color accent_color        @mb_accent;
+@define-color accent_bg_color     @mb_accentbg;
+@define-color accent_fg_color     #ffffff;
+@define-color window_bg_color     @mb_window;
+@define-color window_fg_color     @mb_fg;
+@define-color view_bg_color       @mb_view;
+@define-color view_fg_color       @mb_fg;
+@define-color headerbar_bg_color  transparent;
+@define-color headerbar_fg_color  @mb_fg;
+@define-color headerbar_backdrop_color transparent;
+@define-color headerbar_shade_color rgba(0, 0, 0, 0.25);
+@define-color sidebar_bg_color    @mb_sidebar;
+@define-color sidebar_fg_color    @mb_fg;
+@define-color sidebar_backdrop_color @mb_sidebar;
+@define-color sidebar_shade_color rgba(0, 0, 0, 0.2);
+@define-color secondary_sidebar_bg_color @mb_sidebar;
+@define-color card_bg_color       @mb_card;
+@define-color card_fg_color       @mb_fg;
+@define-color popover_bg_color    @mb_popover;
+@define-color popover_fg_color    @mb_fg;
+@define-color dialog_bg_color     @mb_popover;
+@define-color dialog_fg_color     @mb_fg;
+@define-color destructive_bg_color #da4453;
+@define-color error_color         #da4453;
+@define-color success_color       #27ae60;
+@define-color warning_color       #fdbc4b;
+
+:root {
+  --accent-color: #6a97ff;
+  --accent-bg-color: #3e6fd9;
+  --accent-fg-color: #ffffff;
+  --window-bg-color: rgba(37, 39, 47, 0.86);
+  --window-fg-color: #e3e3e3;
+  --view-bg-color: rgba(28, 28, 35, 0.72);
+  --view-fg-color: #e3e3e3;
+  --headerbar-bg-color: transparent;
+  --headerbar-fg-color: #e3e3e3;
+  --headerbar-backdrop-color: transparent;
+  --sidebar-bg-color: rgba(28, 28, 35, 0.55);
+  --sidebar-fg-color: #e3e3e3;
+  --sidebar-backdrop-color: rgba(28, 28, 35, 0.55);
+  --secondary-sidebar-bg-color: rgba(28, 28, 35, 0.55);
+  --card-bg-color: rgba(255, 255, 255, 0.04);
+  --popover-bg-color: rgba(38, 43, 52, 0.94);
+  --dialog-bg-color: rgba(38, 43, 52, 0.94);
+  --destructive-bg-color: #da4453;
+  --error-color: #da4453;
+  --success-color: #27ae60;
+  --warning-color: #fdbc4b;
+}
+
+/* The repo runs JetBrains Mono everywhere, file manager included. */
+window, popover, tooltip {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+}
+
+/* Hairline edge instead of Adwaita's heavy shade, like the rofi window */
+window.csd, window.solid-csd {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+headerbar {
+  box-shadow: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Sidebar: the Dolphin "Places" look — muted section titles, and the
+ * selected row fades out to the right with a thin accent edge. */
+.navigation-sidebar row {
+  border-radius: 4px;
+  margin: 1px 6px;
+}
+.navigation-sidebar row:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.navigation-sidebar row:selected {
+  color: #ffffff;
+  background-image: linear-gradient(to right, alpha(@mb_select, 0.95), alpha(@mb_select, 0.25));
+  box-shadow: inset -2px 0 @mb_accent;
+}
+.navigation-sidebar .heading,
+placessidebar .heading {
+  color: @mb_dim;
+}
+
+/* File grid / list selection: soft slate, never solid accent */
+gridview > child:selected,
+columnview > listview > row:selected,
+listview > row:selected {
+  background-color: alpha(@mb_select, 0.55);
+  color: #ffffff;
+}
+gridview > child:hover,
+columnview > listview > row:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+gridview > child:selected {
+  box-shadow: inset 0 0 0 1px alpha(@mb_accent, 0.35);
+}
+
+/* Window buttons as the repo's flat bars: slate, mid blue, bright blue */
+windowcontrols button {
+  min-width: 26px;
+  min-height: 10px;
+  padding: 0;
+  margin: 0 3px;
+  border-radius: 2px;
+  box-shadow: none;
+}
+windowcontrols button image {
+  opacity: 0;
+  background: none;
+  box-shadow: none;
+}
+windowcontrols button.minimize { background-color: #474f71; }
+windowcontrols button.maximize { background-color: #3e5fb0; }
+windowcontrols button.close    { background-color: #3e6fd9; }
+windowcontrols button:hover    { filter: brightness(1.25); }
+
+/* Location/search entries and buttons: flat, low-contrast glass */
+entry, searchbar entry, .linked > button, button.flat:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+entry:focus-within {
+  outline-color: alpha(@mb_accent, 0.6);
+}
+
+scrollbar slider {
+  background-color: #3a3f4a;
+  min-width: 4px;
+}
+
+popover > contents, popover > arrow {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}

@@ -1,0 +1,32 @@
+# Monogray — ported from juxtopposed/Mystical-Blue-Theme (KDE JuxTheme.colors)
+mode = "dark"
+
+accent = "#6a97ff"
+selection = "#474f71"
+muted = "#555866"
+
+background = "#1c1c23"
+dark_background = "#16161c"
+darker_background = "#101015"
+lighter_background = "#25272f"
+
+foreground = "#e3e3e3"
+dark_foreground = "#888a9a"
+light_foreground = "#d8d8d8"
+bright_foreground = "#fcfcfc"
+
+red = "#da4453"
+yellow = "#fdbc4b"
+orange = "#f67400"
+green = "#27ae60"
+cyan = "#3daee9"
+blue = "#6084d2"
+magenta = "#9aa0d0"
+brown = "#7a6a5a"
+
+bright_red = "#e5626f"
+bright_yellow = "#fdd276"
+bright_green = "#3dd07e"
+bright_cyan = "#7ac8f0"
+bright_blue = "#6a97ff"
+bright_magenta = "#b4b9e3"

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "monogray.cursor",
+  "name": "Monogray Cursor",
+  "version": "1.0.0",
+  "author": "Monogray for Omarchy",
+  "license": "MIT",
+  "description": "A clean, original cursor set for the Monogray theme: pale body, thin dark outline and a soft blue glow, so it matches the theme without disappearing into the dark glass. Applied to Hyprland, GTK and XWayland apps every time the shell starts.",
+  "kinds": ["service"],
+  "keepLoaded": true,
+  "entryPoints": { "service": "Service.qml" }
+}

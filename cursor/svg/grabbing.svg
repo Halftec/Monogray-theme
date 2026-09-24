@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+<defs><filter id="g" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+<g filter="url(#g)" fill="#6a97ff" stroke="#6a97ff" stroke-width="22" stroke-linejoin="round" opacity="0.55"><circle cx="104" cy="118" r="20"/><circle cx="138" cy="110" r="20"/><circle cx="171" cy="113" r="19"/><circle cx="199" cy="124" r="16"/><rect x="50" y="128" width="32" height="64" rx="16" transform="rotate(-38 66 160)"/><rect x="78" y="116" width="136" height="100" rx="38"/></g>
+<g fill="#16161c" stroke="#16161c" stroke-width="22" stroke-linejoin="round" stroke-linecap="round"><circle cx="104" cy="118" r="20"/><circle cx="138" cy="110" r="20"/><circle cx="171" cy="113" r="19"/><circle cx="199" cy="124" r="16"/><rect x="50" y="128" width="32" height="64" rx="16" transform="rotate(-38 66 160)"/><rect x="78" y="116" width="136" height="100" rx="38"/></g>
+<g fill="#eef1f8"><circle cx="104" cy="118" r="20"/><circle cx="138" cy="110" r="20"/><circle cx="171" cy="113" r="19"/><circle cx="199" cy="124" r="16"/><rect x="50" y="128" width="32" height="64" rx="16" transform="rotate(-38 66 160)"/><rect x="78" y="116" width="136" height="100" rx="38"/></g>
+
+</svg>
