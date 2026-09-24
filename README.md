@@ -55,46 +55,40 @@ straight from GitHub. The extras live in subfolders:
 
 ## Install
 
-**1. Install the theme:**
+One command installs everything:
 
 ```bash
-omarchy theme install https://github.com/Halftec/Monogray-theme
+curl -fsSL https://raw.githubusercontent.com/Halftec/Monogray-theme/main/install.sh | bash
 ```
 
-This gives you the colors, the wallpapers, the clear bar and the glass menus.
+Run it again any time to update. The installer is short, so
+[read it first](install.sh) if you like. It:
 
-**2. Add everything else (recommended):**
-
-```bash
-~/.config/omarchy/themes/monogray/install.sh
-```
-
-Omarchy doesn't let a theme installed from GitHub run code, so step 1 leaves
-out the glass windows and blur (they live in `hyprland.lua`), the dock, the
-cursor, the icon set and the Files/VS Code styling. The installer adds them.
-It's short, so read it first if you like. It:
-
-1. Moves the downloaded theme to `~/.local/share/monogray-theme`, where it's
-   still a git clone you can update, and installs the theme files as a regular
-   user theme so Omarchy keeps `hyprland.lua`.
-2. Downloads the icon set to `~/.local/share/icons` (no sudo needed).
-3. Adds a theme-set hook that styles GTK apps and Code - OSS.
-4. Adds the dock to the center of the bar and moves the clock to the far right.
+1. Downloads the repo to `~/.local/share/monogray-theme`, or updates it if
+   it's already there.
+2. Installs the theme to `~/.config/omarchy/themes/monogray`.
+3. Downloads the icon set to `~/.local/share/icons` (no sudo needed).
+4. Adds a theme-set hook that styles GTK apps and Code - OSS.
+5. Adds the dock to the center of the bar and moves the clock to the far right.
    It backs up `~/.config/omarchy/shell.json` first.
-5. Adds the cursor plugin. It sets the cursor for Hyprland, GTK and XWayland
+6. Adds the cursor plugin. It sets the cursor for Hyprland, GTK and XWayland
    apps, and adds a marked block to `~/.config/uwsm/env-hyprland` so the cursor
    is in place from the start of every login.
-6. Switches to the theme.
+7. Switches to the theme.
 
 Options: `--no-dock`, `--no-layout` (add the dock but leave the bar layout
 alone), `--no-icons`, `--no-cursor`, and `--link` (symlink instead of copy, for
-working on the theme).
+working on the theme). Pass them after `bash -s --`:
 
-You can also skip step 1: `git clone` the repo anywhere and run `./install.sh`
-from it.
+```bash
+curl -fsSL https://raw.githubusercontent.com/Halftec/Monogray-theme/main/install.sh | bash -s -- --no-dock
+```
 
-To update later, run `git -C ~/.local/share/monogray-theme pull`, then run
-`install.sh` from that folder again.
+**Theme only:** `omarchy theme install https://github.com/Halftec/Monogray-theme`
+installs just the colors, wallpapers, clear bar and glass menus. Omarchy
+doesn't let a theme from GitHub run code or keep its `hyprland.lua`, so the
+glass windows, blur, dock, cursor, icons and app styling need the command above.
+Running `~/.config/omarchy/themes/monogray/install.sh` afterwards adds them.
 
 ## Pinning apps in the dock
 
