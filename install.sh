@@ -1,7 +1,10 @@
 #!/bin/bash
 # Monogray for Omarchy: installer.
 #
-#   ./install.sh              install everything and switch to the theme
+#   curl -fsSL https://raw.githubusercontent.com/Halftec/Monogray-theme/main/install.sh | bash
+#                             download (or update) and install everything
+#   ./install.sh              the same, from a clone
+#   ... | bash -s -- --no-dock   pass options when piping
 #   ./install.sh --no-dock    skip the top-bar dock plugin
 #   ./install.sh --no-layout  add the dock but leave the bar layout alone
 #   ./install.sh --no-icons   skip the YAMIS monochrome icon set
@@ -15,11 +18,31 @@
 # made by `omarchy theme install` to ~/.local/share/monogray-theme first.
 set -euo pipefail
 
-REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_URL="${MONOGRAY_REPO:-https://github.com/Halftec/Monogray-theme.git}"
+SHARE_DIR="$HOME/.local/share/monogray-theme"
+
+# One-command install: `curl -fsSL .../install.sh | bash`. Piped in, there's no
+# repo next to this script, so fetch it (or update an earlier copy) and run the
+# real installer from there with the same options.
+self="${BASH_SOURCE[0]:-}"
+if [[ -z $self || ! -f $(dirname "$self")/colors.toml ]]; then
+  command -v git >/dev/null || { echo "git is required." >&2; exit 1; }
+  if [[ -d $SHARE_DIR/.git ]]; then
+    printf '\033[1;34m::\033[0m Updating Monogray in %s\n' "$SHARE_DIR"
+    git -C "$SHARE_DIR" pull --ff-only --quiet
+  else
+    printf '\033[1;34m::\033[0m Downloading Monogray to %s\n' "$SHARE_DIR"
+    rm -rf "$SHARE_DIR"
+    mkdir -p "$(dirname "$SHARE_DIR")"
+    git clone --depth 1 --quiet "$REPO_URL" "$SHARE_DIR"
+  fi
+  exec bash "$SHARE_DIR/install.sh" "$@"
+fi
+
+REPO="$(cd "$(dirname "$self")" && pwd)"
 THEME_ID="monogray"
 # The files that make up the theme itself (the rest of the repo is extras).
 THEME_FILES=(colors.toml hyprland.lua shell.toml gtk.css gtk3.css icons.theme preview.png backgrounds)
-SHARE_DIR="$HOME/.local/share/monogray-theme"
 PLUGIN_ID="monogray.dock"
 CURSOR_ID="monogray.cursor"
 HOOK_NAME="monogray-extras.sh"
@@ -40,7 +63,7 @@ for arg in "$@"; do
     --no-icons) with_icons=0 ;;
     --no-cursor) with_cursor=0 ;;
     --link) link=1 ;;
-    -h|--help) sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "Unknown option: $arg (see --help)" >&2; exit 1 ;;
   esac
 done
