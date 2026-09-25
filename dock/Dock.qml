@@ -360,8 +360,11 @@ BarWidget {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             onClicked: {
+              // Closing the menu empties this Repeater and destroys this row,
+              // so take the action before closing.
+              var action = modelData.run
               root.menuOpen = false
-              modelData.run()
+              action()
             }
           }
         }
