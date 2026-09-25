@@ -197,8 +197,7 @@ cat <<EOF
 
 Monogray is installed.
   Theme:  $THEMES_DIR/$THEME_ID
-  Dock:   pin apps by editing the "$PLUGIN_ID" entry in $SHELL_JSON, e.g.
-          { "id": "$PLUGIN_ID", "pinned": ["org.gnome.Nautilus", "chromium", "foot"] }
+  Dock:   right-click any app in the dock and choose "Pin to dock"
   Undo:   $REPO/uninstall.sh
 
 Apps that are already open pick up the new GTK styling and cursor when relaunched.

@@ -16,8 +16,9 @@ cursor. It's based on Juxtopposed's KDE Plasma theme
 - **A clear top bar**, like the original's transparent panel. Each wallpaper has
   a blurred strip along the top edge, so the bar still reads as frosted glass.
 - **Monogray Dock**: an icon-only app dock in the center of the bar, like the
-  original's top-panel task manager. It has pinned and running apps, monochrome
-  icons, and a thin line above running apps that turns blue for the focused one.
+  original's top-panel task manager. Right-click any app to pin it. It has
+  monochrome icons and a thin line above running apps that turns blue for the
+  focused one.
 - **Files (Nautilus) and other GTK apps** styled after the original's Dolphin
   look: slate glass, JetBrains Mono, and a highlight on the selected sidebar row
   that fades out to the right.
@@ -92,26 +93,25 @@ Running `~/.config/omarchy/themes/monogray/install.sh` afterwards adds them.
 
 ## Pinning apps in the dock
 
-The dock comes with five apps that ship with every Omarchy install: Files,
-Chromium, Terminal, Obsidian and LibreOffice. To change them, edit the dock's
-entry in `~/.config/omarchy/shell.json`. Changes apply as soon as you save:
+**Right-click any app in the dock and choose Pin to dock.** To pin an app
+that isn't there yet, open it first, then right-click its icon. Choose
+**Unpin from dock** to remove it.
+
+The dock starts with five apps that come with every Omarchy install: Files,
+Chromium, Terminal, Obsidian and LibreOffice.
+
+| Click  | Action                                                   |
+|--------|----------------------------------------------------------|
+| Left   | Open the app, focus it, or cycle through its windows     |
+| Right  | Menu: Pin/Unpin, New window, Close window                |
+| Middle | Close all of the app's windows                           |
+
+Pins are saved in `~/.config/omarchy/shell.json`, so you can also edit them by
+hand. They're `.desktop` file names without the extension:
 
 ```json
-{
-  "id": "monogray.dock",
-  "pinned": ["org.gnome.Nautilus", "chromium", "foot", "obsidian", "libreoffice-startcenter"],
-  "monochrome": true
-}
+{ "id": "monogray.dock", "pinned": ["org.gnome.Nautilus", "chromium", "foot"] }
 ```
-
-Pins are `.desktop` file names without the extension (see
-`ls /usr/share/applications`). Pins for apps that aren't installed are skipped.
-
-| Click  | Action                                        |
-|--------|-----------------------------------------------|
-| Left   | Open the app, focus it, or cycle its windows   |
-| Middle | Close all of the app's windows                 |
-| Right  | Open a new window                              |
 
 ## Tweaking
 
